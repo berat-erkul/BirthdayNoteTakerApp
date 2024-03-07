@@ -17,18 +17,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
             
+        //if user saved a name and birthday, show it.
         nameLabel.text = "Name:\(UserDefaults.standard.object(forKey: "name") ?? "")"
         birthdayLabel.text = "Surname:\(UserDefaults.standard.object(forKey: "surname") ?? "")"
-        
+                
+        //Tap gesture racognizer
         imageView.isUserInteractionEnabled = true
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageClicked))
-        
         imageView.addGestureRecognizer(tap)                                                           //ViewDidLoad
-        
-        
+                
         //Hide keyboard
-            //Looks for single or multiple taps.
              let tap2 = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
 
             //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
@@ -39,6 +37,7 @@ class ViewController: UIViewController {
 
     //----------------------------------------------------------------------------------------------------
     
+    //"Both first name and surname text fields must be filled in "
     @IBAction func saveButton(_ sender: Any) {
         
         if(nameTextField.text! == "" && surnameTextField.text! == ""){
@@ -65,6 +64,7 @@ class ViewController: UIViewController {
    
     //------------------------------------------------------------------------------------------------------
     
+    //I will use this method to show alert after click the save button
     func alerts(title: String, message: String){
         
         let emptyFieldAlert = UIAlertController(title:title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -102,12 +102,15 @@ class ViewController: UIViewController {
     
     @IBAction func deleteButton(_ sender: Any) {
         
+        
         if(nameLabel.text! == "Name:" || birthdayLabel.text! == "Birthday:"){
-            
+
+            //if it don't have saved name and birthday, show this alert
             alerts(title: "Ooops!", message: "You don't have any saved name")
             
         }else{
-            
+                        
+            //if there is a saved name and birthday, show the attention message after click delete
             let deleteAlert = UIAlertController(title:"Attention!", message:"You clicked delet button,This action cannot be undone. Are you sure?", preferredStyle: UIAlertController.Style.alert)
             
             let deleteButton = UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive) { UIAlertAction in
